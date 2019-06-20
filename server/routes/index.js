@@ -19,6 +19,8 @@ router.get('/', (req, res) => {
 router.post('/login', authentication.login);
 router.get('/logout', authentication.logout);
 
+router.use(authentication.authentication);
+router.get('/isAuthenticated', authentication.isAuthenticated);
 /* Application */
 router.get('/offer-applications/:offerId', application.getOfferApplication);
 

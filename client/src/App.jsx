@@ -11,7 +11,8 @@ import {
   Footer,
   PageNotFound,
   MyApplications,
-  MyOffers
+  MyOffers,
+  OfferDetails
 } from './Components';
 
 
@@ -33,6 +34,7 @@ export default class App extends Component{
             <Route exact path="/home" component={Home} />
             <Route exact path="/app/offers/my-app" component={MyApplications} />
             <Route exact path="/app/offers/my-offers" component={MyOffers} />
+            <Route exact path="/app/offers/:offerId" component={OfferDetails} />
 
 
             <Route component={PageNotFound} />

@@ -1,4 +1,19 @@
-//in applicants in offerDetails --> when click hire button 
-module.exports = (req,res)=>{
-    res.send('getMyApp')
-}
+
+const yup = require('yup');
+
+const { getMyApplication } = require('../../database/queries/applications/index');
+// const getMyApplication = require('../../database/queries/applications/getMyApplication');
+
+module.exports = (req, res, next) => {
+const { memberId, offerId } = req.params;
+console.log(req.params);
+
+getMyApplication(memberId, offerId)
+.then((result) => {
+res.send({
+error: null,
+data: result.rows,
+});
+})
+.catch(() => next({ code: 500, msg: 'Internal Server Error' }));
+};

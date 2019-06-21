@@ -2,6 +2,7 @@ import React , { Component } from 'react';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import offerData from '../utils/offers';
 import applicationsData from '../utils/applications';
+import myApplicationMe from '../utils/myApplicationMe'
 import SideCard from './SideCard';
 import ApplicationCard from './ApplicationCard';
 import './style.css';
@@ -9,7 +10,8 @@ import './style.css';
 export default class OfferDetails extends Component{
     state={
         offer:[],
-        applications:[]
+        applications:[],
+        myApplication:[]
     }
     
     componentDidMount(){
@@ -22,6 +24,7 @@ export default class OfferDetails extends Component{
             
         });
         this.setState({applications:applicationsData});
+        // this.setState({myApplication:myApplicationMe});
         
         
     }
@@ -31,6 +34,8 @@ export default class OfferDetails extends Component{
     render(){
         console.log('offer',this.state.offer);
         console.log('apps',this.state.applications);
+        console.log('myapppppps',this.state.myApplicationMe);
+
         const userInfo = {
             id: 1,
             fullName: 'Alaa Badra',
@@ -38,19 +43,15 @@ export default class OfferDetails extends Component{
             avatar:
               'https://m.media-amazon.com/images/M/MV5BMTcxOTk4NzkwOV5BMl5BanBnXkFtZTcwMDE3MTUzNA@@._V1_.jpg',
           };
-          const { offer, applications } = this.state;
+          const { offer, applications , myApplicationMe } = this.state;
           const { id: memberId } = userInfo;
+         
         return(
-            <>
-            
-            
-
-                
-                   
+            <>      
+            {/* offer show always */}
                   <Container>
                     <Row>
                       <Col>
-{console.log('inssssside return',offer.position)}
                      <span>{offer.position}</span>
                      <p>{offer.title}</p>
                      </Col>
@@ -77,11 +78,7 @@ export default class OfferDetails extends Component{
                      </Row>
 
                 </Container>
-       
-                
-                
-                 
-                
+    {/* if owner offer and found apps */}
             {memberId === offer.member_id?(
               <>
                <Row>
@@ -95,14 +92,49 @@ export default class OfferDetails extends Component{
                
                  <ApplicationCard
                  viewProfile
+                 HireMe
                  application={item}
                  />
 
               
-             ))}
+             ))}:{
+    // if owner offer and not found apps 
+              //  
+               <div>
+                 no apps 
+               </div>
+             }
              </Col>
              </>
-            ):null}
+            ):(
+              <>
+              {console.log('myappppppppppp',myApplicationMe)}
+    {/* if not owner offer so search in my app */}
+              {/* if found my app */}
+              {myApplicationMe?(
+                <>
+                <ApplicationCard 
+                application={myApplicationMe}
+                />
+                </>
+              ):(
+                //if not owner and  not found my app--> not post app for this offer before it
+                <>
+                  <Col xs lg="9" className="offer-details__proposal-container">
+              <Form.Control
+                as="textarea"
+                rows="8"
+                placeholder="Write your proposal here !!!"
+                style={{ marginBottom: '10px' }}
+              />
+              <Button className="offer-details__proposal-container__button">
+                Apply
+              </Button>
+            </Col>
+                </>
+              )}
+            </>
+            )}
                
                 </>
         )

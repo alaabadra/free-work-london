@@ -25,7 +25,7 @@ export default class OfferDetails extends Component{
             status,
            
           } = this.props.application;
-          const { viewProfile} = this.props;
+          const { viewProfile, HireMe} = this.props;
         return(
             <>
             <Container className="application-card__container">
@@ -46,7 +46,8 @@ export default class OfferDetails extends Component{
                             </Button>
                             {!status?(
                                 <Button  onClick={this.handleHireMe}  className="application-card__button">
-                                    HireMe
+                                    Hire me
+                                    
                                 </Button>
                             ):(
                                 <Card.Text className={`application-card__${status}`}>

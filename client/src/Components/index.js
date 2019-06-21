@@ -6,7 +6,7 @@ import Header from './Header';
 import Footer from './Footer';
 import PageNotFound from './PageNotFound';
 import MyApplications from './MyApplications'
-
+import MyOffers from './MyOffers'
 export {
   LandingPage,
   Login,
@@ -15,5 +15,6 @@ export {
   Header,
   Footer,
   PageNotFound,
-  MyApplications
+  MyApplications,
+  MyOffers
 };

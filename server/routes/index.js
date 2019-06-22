@@ -15,7 +15,7 @@ const {
 // router.get('/logout', authentication.logout);
 
 /* Application */
-router.get('/offer-applications/:offerId', application.getOfferApplications);
+// router.get('/offer-applications/:offerId', application.getOfferApplications);
 
 router.get('/:memberId/my-applications', application.getMyApplications);
 router.get('/:memberId/my-applications/:offerId', application.getMyApplication);

@@ -1,5 +1,5 @@
 const getSkills = require('./getSkills');
-const getMemberSkills = require('./getMemberskills');
+const getMemberSkills = require('./getMemberSkills');
 const addSkills = require('./addSkills');
 
 module.exports = {

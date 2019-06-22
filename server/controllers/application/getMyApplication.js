@@ -4,22 +4,20 @@ const { getMyApplication } = require('../../database/queries/application/index')
 console.log(getMyApplication);
 
 module.exports = (req, res, next) => {
-    console.log('kkkkkkkkkkkkkkkkkkkkkk');
     
   const { memberId, offerId } = req.params;
-console.log(req);
 
-//   const schema = yup.object({
-//     offerId: yup.string().required(),
-//     memberId: yup.string().required(),
-//   });
+  const schema = yup.object({
+    offerId: yup.string().required(),
+    memberId: yup.string().required(),
+  });
 
-//   schema
-//     .validate({
-//       offerId,
-//       memberId,
-//     })
-//     .then(() => {
+  schema
+    .validate({
+      offerId,
+      memberId,
+    })
+    .then(() => {
       getMyApplication(memberId, offerId)
         .then((result) => {
           res.send({
@@ -28,8 +26,8 @@ console.log(req);
           });
         })
         .catch(() => next({ code: 500, msg: 'Internal Server Error' }));
-    // })
-    // .catch((err) => {
-    //   next({ code: 400, msg: err.message });
-    // });
+    })
+    .catch((err) => {
+      next({ code: 400, msg: err.message });
+    });
 };

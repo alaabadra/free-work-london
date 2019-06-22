@@ -11,4 +11,4 @@ const getMyApplication = (memberId, offerId) => {
   return connection.query(selectMyApplications);
 };
 
-module.exports = {getMyApplication};
+module.exports = getMyApplication;

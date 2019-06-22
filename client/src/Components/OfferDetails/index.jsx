@@ -24,7 +24,7 @@ export default class OfferDetails extends Component{
             
         });
         this.setState({applications:applicationsData});
-        // this.setState({myApplication:myApplicationMe});
+        this.setState({myApplication:myApplicationMe});
         
         
     }
@@ -34,16 +34,16 @@ export default class OfferDetails extends Component{
     render(){
         console.log('offer',this.state.offer);
         console.log('apps',this.state.applications);
-        console.log('myapppppps',this.state.myApplicationMe);
+        console.log('myapppppps',this.state.myApplication);
 
         const userInfo = {
-            id: 1,
+            id: 2,
             fullName: 'Alaa Badra',
             username: 'alaabadra',
             avatar:
               'https://m.media-amazon.com/images/M/MV5BMTcxOTk4NzkwOV5BMl5BanBnXkFtZTcwMDE3MTUzNA@@._V1_.jpg',
           };
-          const { offer, applications , myApplicationMe } = this.state;
+          const { offer, applications , myApplication } = this.state;
           const { id: memberId } = userInfo;
          
         return(
@@ -108,13 +108,13 @@ export default class OfferDetails extends Component{
              </>
             ):(
               <>
-              {console.log('myappppppppppp',myApplicationMe)}
+              {console.log('myappppppppppp',myApplication)}
     {/* if not owner offer so search in my app */}
               {/* if found my app */}
-              {myApplicationMe?(
+              {myApplication?(
                 <>
                 <ApplicationCard 
-                application={myApplicationMe}
+                application={myApplication}
                 />
                 </>
               ):(

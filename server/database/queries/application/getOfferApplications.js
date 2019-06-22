@@ -13,4 +13,4 @@ const getOfferApplications = (offerId) => {
   return connection.query(selectOfferApplications);
 };
 
-module.exports = {getOfferApplications};
+module.exports = getOfferApplications;

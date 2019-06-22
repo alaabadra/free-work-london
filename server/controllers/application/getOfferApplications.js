@@ -2,7 +2,6 @@ const { getOfferApplications } = require('../../database/queries/application/ind
 console.log(getOfferApplications);
 
 module.exports = (req, res, next) => {
-  console.log('jjjjjjjjjjjjjjjjj');
   
   const { offerId } = req.params;
   getOfferApplications(offerId)

@@ -3,7 +3,7 @@ import { Card , Button ,Spinner , Alert} from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import './style.css';
 
-export default class CommonCard extends Component{
+ class CommonCard extends Component{
     state={
         offer:null,
         statusLabel:'',
@@ -38,8 +38,6 @@ export default class CommonCard extends Component{
     }
     render(){
         const {offer , hovered , statusLabel, statusDiv} = this.state;
-        console.log('state',this.state);
-        console.log('ppppprops',this.props);
         const { hover , history }= this.props
         
         return(
@@ -88,4 +86,4 @@ export default class CommonCard extends Component{
     }
 
 }
-// export default withRouter(CommonCard);
+export default withRouter(CommonCard);

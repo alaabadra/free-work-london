@@ -64,7 +64,7 @@ export default class SignUp extends Component {
           .catch(err => console.log(err)
           );
       })
-      .catch(({ inner }) => {
+          .catch(({ inner }) => {
         if (inner) {
           const errors = inner.reduce(
             (acc, item) => ({ ...acc, [item.path]: item.message }),

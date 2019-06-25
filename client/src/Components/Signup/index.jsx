@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './style.css';
+import signupValidation from './validate-schema';
 import { Form, Button } from 'react-bootstrap';
 
 export default class SignUp extends Component {
@@ -20,7 +21,57 @@ export default class SignUp extends Component {
     console.log(this.state);
 
    }
-
+   handleClick = e => {
+    e.preventDefault();
+    const { setUserInfo } = this.props;
+    const { username, password: pass, email, confPassword } = this.state;
+    this.setState({ errormsg: '' });
+    signupValidation
+      .validate(
+        {
+          email,
+          pass,
+          confPassword,
+          username,
+        },
+        { abortEarly: false }
+      )
+      .then(() => {
+        fetch('/api/v1/members', {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, email, pass }),
+        })
+          .then(res => res.json())
+          .then(response => {
+            if (response.data) {
+              localStorage.setItem(
+                'userInfo',
+                JSON.stringify(response.data[0])
+              );
+              // auth.isAuthenticated = true;
+              setUserInfo(response.data);
+              this.props.history.push('/home');
+            } else {
+              this.setState({ errormsg: response.error.msg });
+            }
+          })
+          .catch(err => console.log(err)
+          );
+      })
+      .catch(({ inner }) => {
+        if (inner) {
+          const errors = inner.reduce(
+            (acc, item) => ({ ...acc, [item.path]: item.message }),
+            {}
+          );
+          this.setState({ errormsg: { ...errors } });
+        }
+      });
+  };
   render() {
     const { username, email, password, confPassword, errormsg } = this.state;
     return (
@@ -97,8 +148,9 @@ export default class SignUp extends Component {
             variant="primary"
             type="submit"
             className="content-signup__submit"
+            onClick={this.handleClick}
           >
-            Submit
+            signup
           </Button>
           <Form.Text className="content-signup__text-muted">
             Already have an account?{' '}

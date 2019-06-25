@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const {
-  authentication,
+//   authentication,
   application,
   filter,
   member,
@@ -9,7 +9,7 @@ const {
   offerType,
   skills,
   erros,
-} = require('../contollers');
+} = require('../controllers');
 
 router.get('/', (req, res) => {
     res.send('Server is running on 4000!!');
@@ -21,19 +21,23 @@ router.get('/', (req, res) => {
 
  router.post('/login', authentication.login);
 router.get('/logout', authentication.logout);
+// router.post('/login', authentication.login);
+// router.get('/logout', authentication.logout);
 
 /* Application */
-router.get('/offer-applications/:offerId', application.getOfferApplication);
+router.get('/offer-applications/:offerId', application.getOfferApplications);
 
-router.get('/my-applications/:memberId', application.getMyApplication);
+router.get('/:memberId/my-applications', application.getMyApplications);
+router.get('/:memberId/my-applications/:offerId', application.getMyApplication);
 
 router.post('/applications', application.addApplication);
 
-router.post('/hired_member', application.addHireMember);
-router.patch('/hired_member/:memberId', application.updateHireMember);
+router.post('/hired-member', application.addHireMember);
+router.patch('/hired-member/:memberId', application.updateHireMember);
 
 /* filter */
-router.route('/filter/:member_id')
+router
+  .route('/filter/:member_id')
   .get(filter.getFilter)
   .patch(filter.updateFilter);
 
@@ -57,7 +61,6 @@ router.delete('/saved-offers/:memberId', offer.deleteSavedOffer);
 router.get('/offer-type', offerType.getOfferTypes);
 router.post('/offer-type', offerType.addOfferType);
 
-
 /* Skills */
 router.get('/skills', skills.getSkills);
 router.get('/skills/:memberId', skills.getMemberSkills);
@@ -67,6 +70,3 @@ router.use(erros.notFound);
 router.use(erros.serverError);
 
 module.exports = router;
-
-
-

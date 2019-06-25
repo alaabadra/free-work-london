@@ -1,3 +1,5 @@
+
+
 const dbconnection = require('../../config/db_connection');
 
 const addMmeber = ({ username, pass, email }) => {
@@ -10,3 +12,4 @@ const addMmeber = ({ username, pass, email }) => {
   return dbconnection.query(sql);
 };
 module.exports = addMmeber;
+

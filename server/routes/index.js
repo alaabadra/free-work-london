@@ -15,8 +15,11 @@ router.get('/', (req, res) => {
     res.send('Server is running on 4000!!');
   });
      
-  
-router.post('/login', authentication.login);
+ //auth
+ router.use(authentication.authentication);
+ router.get('/isAuthenticated', authentication.isAuthenticated); 
+
+ router.post('/login', authentication.login);
 router.get('/logout', authentication.logout);
 
 /* Application */

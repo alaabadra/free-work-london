@@ -1,5 +1,7 @@
 
 
+
+
 module.exports = (req , res , next)=>{
     const {user} = req;
     if(user){
@@ -8,5 +10,7 @@ module.exports = (req , res , next)=>{
         next({code : 401 , msg: 'un auth'})
     }
 }
+
+  
 
 

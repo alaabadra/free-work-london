@@ -9,6 +9,7 @@ const {
   offerType,
   skills,
   erros,
+  
 } = require('../controllers');
 
 // router.post('/login', authentication.login);
@@ -23,7 +24,7 @@ router.get('/:memberId/my-applications/:offerId', application.getMyApplication);
 router.post('/applications', application.addApplication);
 
 router.post('/hired-member', application.addHireMember);
-router.patch('/hired-member/:memberId', application.updateHireMember);
+router.patch('/hired-member/:memberId', application.patchHiredMember);
 
 /* filter */
 router

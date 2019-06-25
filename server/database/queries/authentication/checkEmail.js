@@ -1,5 +1,7 @@
 
 
+
+
 const dbconnection = require('../../config/db_connection');
 
 exports.checkEmail = (email) => {
@@ -9,3 +11,5 @@ exports.checkEmail = (email) => {
   };
   return dbconnection.query(sql);
 };
+
+

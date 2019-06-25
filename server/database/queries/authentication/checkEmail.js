@@ -4,5 +4,5 @@ exports.checkEmail = (email) => {
     text: 'SELECT * FROM member WHERE email = $1',
     values: [email],
   };
-  return dbconnection.query(sql);
+  return dbconnection.query(sql);     
 };

@@ -23,8 +23,11 @@ module.exports = (req, res, next) => {
           
        else return hashingPass(memberInfo.password);
         })
-        .then(hashedPass => 
-          console.log('jjjj',hashedPass))   
+        .then(hashedPass => {
+          console.log('jjjj',hashedPass)
+          console.log(addMmeber);
+          
+        })   
         //   addMmeber({ ...memberInfo, pass: hashedPass }))
     //      .then((resultAdd) => {
     //       console.log('add',resultAdd);      

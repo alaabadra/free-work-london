@@ -24,13 +24,13 @@ export default class SignUp extends Component {
    handleClick = e => {
     e.preventDefault();
     const { setUserInfo } = this.props;
-    const { username, password: pass, email, confPassword } = this.state;
+    const { username, password, email, confPassword } = this.state;
     this.setState({ errormsg: '' });
     signupValidation
       .validate(
         {
           email,
-          pass,
+          password,
           confPassword,
           username,
         },
@@ -43,10 +43,12 @@ export default class SignUp extends Component {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ username, email, pass }),
+          body: JSON.stringify({ username, email, password }),
         })
           .then(res => res.json())
           .then(response => {
+            console.log('response post in this link fetch (b,f)',response);
+            
             if (response.data) {
               localStorage.setItem(
                 'userInfo',

@@ -10,40 +10,50 @@ export default class OfferDetails extends Component{
         showWrongAlert:''
     }
     handleProfile=()=>{
-        const {application:{username},history} = this.props
-        history.push(`/app/profile/${username}`)
+      const {application:{username},history} = this.props
+      history.push(`/app/profile/${username}`)
     }
     handleHireMe=()=>{
-        const {application:{member_id}, match}= this.props;
-        const {params:{offerId}}= match;
-        fetch(`/api/v1/hired-member`,{
-            method:'POST',
-            credentials:'same-origin',
-            body:JSON.stringify({
-                member_id,
-                offer_id:offerId,
-            })
+      const {application:{member_id}, match}= this.props;
+      const {application:{status}}=this.props
+      const {params:{offerId}}= match;
+      fetch(`/api/v1/hired-member`,{
+        method:'POST',
+        credentials:'same-origin',
+        body:JSON.stringify({
+          member_id,
+          offer_id:offerId,
+          status:'pending'
         })
+      })
         .then(res=>{
-            if(res.data){
-                console.log(res.data);
-                
+          if(res){
+            console.log(res);// rows: [ { offer_id: 2, member_id: 3, status: 'pending' } ],
+            // res.send('add hired member successfully')  
             }
-        })
-        .catch(() =>
-        this.setState(
-          {
-            showWrongAlert: true,
-          },
-          () =>
+          })
+          .catch(() =>
+          this.setState(
+            {
+              showWrongAlert: true,
+            },
+            () =>
             setTimeout(() => {
               this.setState({ showWrongAlert: false });
             }, 5000)
-        )
+            )
       );
     }
     handleAccept=()=>{
-        const {userInfo} = this.state;
+      const userInfo = {
+        id: 2,
+        fullName: 'Alaa Badra',
+        username: 'alaabadra',
+        avatar:
+          'https://m.media-amazon.com/images/M/MV5BMTcxOTk4NzkwOV5BMl5BanBnXkFtZTcwMDE3MTUzNA@@._V1_.jpg',
+      };
+      // this.setState({userInfo})
+        // const {userInfo} = this.state;
         const {match}= this.props;
         const {params:{offerId}}= match;
         fetch(`/api/v1/hired-member/${userInfo.id}`,{
@@ -146,7 +156,9 @@ export default class OfferDetails extends Component{
                                     Hire me
                                     
                                 </Button>
-                            ):(   <Card.Text>
+                            ):(  
+                              //in account owner app 
+                              <Card.Text>
                               {userInfo.id === this.props.application.member_id &&
                             this.props.application.status === 'pending' ? (
                                 <>
@@ -164,6 +176,7 @@ export default class OfferDetails extends Component{
                                   </Button>
                                 </>
                               ) : (
+                                //in account owner offer
                                 <span >
                                   {status}
                                 </span>

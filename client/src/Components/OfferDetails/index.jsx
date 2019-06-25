@@ -31,66 +31,66 @@ export default class OfferDetails extends Component {
     } = this.props
     this.setState({userInfo,offerId})
     //fetch offers
-    fetch(`/api/v1/offer/${offerId}`,{
-      method:'GET',
-    })
-    .then(response=>response.json())
-    .then(res => {
-      if(res.data){
-        this.setState({offer:res.data})
+    // fetch(`/api/v1/offer/${offerId}`,{
+    //   method:'GET',
+    // })
+    // .then(response=>response.json())
+    // .then(res => {
 
-      }else this.setState({errOffer:true})//err for one time until come offers (loading)
-    })
-    .catch((err)=>
-    {
-      // this.setState({errMessage:err.message},()=>{
-      //   console.log(this.state.errMessage);
-        
-      // })
-      console.log(err);
-      this.setState(//err in catch because error from database (no result) 
-      {
-        showWrongAlert: true,
-      },
-      () =>
-        setTimeout(() => {
-          this.setState({ showWrongAlert: false });
-        }, 5000)
-    )
-    
-    }
-    )
-    //fetch offerApps
-    fetch(`/api/v1/offer-applications/${offerId}`,{
-      method:'GET',
-    })
-    .then(response=>response.json())
-    .then(res => {
-      if(res){
-        this.setState({applications:res})
+    //   console.log('res data', res)
+    //   if(res.data){
+    //     this.setState({offer:res.data})
 
-      }else this.setState({errOffer:true})//err for one time until come offers (loading)
-    })
-    .catch((err)=>
-    {
-      // this.setState({errMessage:err.message},()=>{
-      //   console.log(this.state.errMessage);
-        
-      // })
-      console.log(err);
-      this.setState(//err in catch because error from database (no result) 
-      {
-        showWrongAlert: true,
-      },
-      () =>
-        setTimeout(() => {
-          this.setState({ showWrongAlert: false });
-        }, 5000)
-    )
+    //   }else this.setState({errOffer:true})//err for one time until come offers (loading)
+    // })
+    // .catch((err)=>
+    // {
+   
+    //   console.log(err);
+    //   this.setState(//err in catch because error from database (no result) 
+    //   {
+    //     showWrongAlert: true,
+    //   },
+    //   () =>
+    //     setTimeout(() => {
+    //       this.setState({ showWrongAlert: false });
+    //     }, 5000)
+    // )
     
-    }
-    )
-    //fetch myApp for this member for this offer
+    // }
+    
+    // )
+    ///fetch offerApps
+    // fetch(`/api/v1/offer-applications/${offerId}`,{
+    //     method:'GET',
+    // })
+    // .then(response=>response.json())
+    // .then(res => {
+    //     if(res){
+    //     this.setState({applications:res})
+
+    //   }else this.setState({errOffer:true})//err for one time until come offers (loading)
+    // })
+    // .catch((err)=>
+    // {
+    //   // this.setState({errMessage:err.message},()=>{
+    //   //   console.log(this.state.errMessage);
+        
+    //   // })
+    //   console.log(err);
+    //   this.setState(//err in catch because error from database (no result) 
+    //   {
+    //       showWrongAlert: true,
+    //   },
+    //   () =>
+    //     setTimeout(() => {
+    //       this.setState({ showWrongAlert: false });
+    //     }, 5000)
+    // )
+    
+    // }
+    // )
+    // //fetch myApp for this member for this offer
     const{id} = userInfo;
     fetch(`/api/v1/${id}/my-applications/${offerId}`,{
       method:'GET',
@@ -104,8 +104,8 @@ export default class OfferDetails extends Component {
     })
     .catch((err)=>
     {
-      // this.setState({errMessage:err.message},()=>{
-      //   console.log(this.state.errMessage);
+        // this.setState({errMessage:err.message},()=>{
+          //   console.log(this.state.errMessage);
         
       // })
       console.log(err);
@@ -121,7 +121,8 @@ export default class OfferDetails extends Component {
     
     }
     )
-
+    
+    // console.log(this.state.offer)
   }
   handleContract = () => {
     const {offerId} = this.state;
@@ -141,6 +142,12 @@ export default class OfferDetails extends Component {
       if(res.data){
         const {status} = res.data[0];
         console.log(res.data);
+        //hold all state to take from it --> status from offer
+        // this.setState(prevState => {
+        //   const updatedOffer = { ...prevState.offer };
+        //   updatedOffer.status = status;
+        //   return { offer: updatedOffer };
+        // });
         
       }
     })
@@ -158,8 +165,8 @@ export default class OfferDetails extends Component {
   }
   render() {
     console.log('offer', this.state.offer);
-    console.log('apps', this.state.applications);
-    console.log('myapppppps', this.state.myApplication);
+    // console.log('apps', this.state.applications);
+    // console.log('myapppppps', this.state.myApplication);
 
 
     const {offerId,userInfo, offer, applications, myApplication,showWrongAlert,errorOffer } = this.state;
@@ -168,8 +175,10 @@ export default class OfferDetails extends Component {
     return (
       <>
       {showWrongAlert&&<span> Somthing went error! Try agailn </span>} {/* err in catch because error from database (no result) */}
-      {!errorOffer && !offer && <Spinner animation="grow" variant="info" />} {/* err for one time until come offers (loading) */}
-      {/* {errorOffer && <PageNotFound />} */}
+      
+    {!errorOffer && !offer && <Spinner animation="grow" variant="info" />} {/* err for one time until come offers (loading)  */}
+    
+      {/* {errorOffer && <PageNotFound />}
         {/* offer show always */}
         <Container>
           <Row>
@@ -230,10 +239,10 @@ export default class OfferDetails extends Component {
           </>
         ) : (
             <>
-              {console.log('myappppppppppp', myApplication)}
-              {/* if not owner offer so search in my app */}
+              {/* {console.log('myappppppppppp', myApplication)} */}
+              {/* if not owner offer so search in my app
               {/* if found my app */}
-              {myApplication ? (
+              {/* {myApplication ? (
                 <>
                   <ApplicationCard
                     application={myApplication}
@@ -247,11 +256,11 @@ export default class OfferDetails extends Component {
                     userInfo = {userInfo}
                   />
                   </>
-                )}
+                )} */}
             </>
-          )}
+          )}  
 
-      </>
-    )
-  }
+       </>
+    
+    )}
 }

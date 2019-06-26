@@ -18,35 +18,43 @@ export default class SignUp extends Component {
   handleChange = ({ target: { value, name } }) =>
   {
       this.setState({ [name]: value });
-    console.log(this.state);
 
    }
    handleClick = e => {
+    console.log(11111111111);
+    
     e.preventDefault();
     const { setUserInfo } = this.props;
-    const { username, password: pass, email, confPassword } = this.state;
+    const { username, password, email, confPassword } = this.state;
     this.setState({ errormsg: '' });
     signupValidation
       .validate(
         {
           email,
-          pass,
+          password,
           confPassword,
           username,
         },
         { abortEarly: false }
       )
       .then(() => {
+        console.log(2222222222);
         fetch('/api/v1/members', {
           method: 'POST',
           credentials: 'same-origin',
           headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ username, email, pass }),
+               'Content-Type': 'application/json',
+          },Accept:'application/json',
+          body: JSON.stringify({ username, email, password }),
         })
-          .then(res => res.json())
+          .then(res =>{ 
+            console.log('111111',res);
+            
+           return res.json()
+          })
           .then(response => {
+            console.log('response post in this link fetch (b,f)',response);
+            
             if (response.data) {
               localStorage.setItem(
                 'userInfo',
@@ -62,17 +70,25 @@ export default class SignUp extends Component {
           .catch(err => console.log(err)
           );
       })
-      .catch(({ inner }) => {
+          .catch(({ inner }) => {
         if (inner) {
           const errors = inner.reduce(
             (acc, item) => ({ ...acc, [item.path]: item.message }),
             {}
-          );
-          this.setState({ errormsg: { ...errors } });
+          
+            );
+            
+          this.setState({ errormsg: { ...errors } },()=>{
+            console.log(this.state.errormsg);
+            
+          });
+          
         }
       });
   };
   render() {
+    console.log(this.state);
+
     const { username, email, password, confPassword, errormsg } = this.state;
     return (
       <>

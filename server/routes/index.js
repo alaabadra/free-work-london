@@ -10,6 +10,9 @@ const {
   skills,
   erros,
 } = require('../controllers');
+router.use(authentication.authentication);
+
+router.get('/isAuthenticated', authentication.isAuthenticated);
 
 router.post('/login', authentication.login);
 router.post('/members', member.addMember);

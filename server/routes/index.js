@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const {
-//   authentication,
+  authentication,
   application,
   filter,
   member,
@@ -10,6 +10,9 @@ const {
   skills,
   erros,
 } = require('../controllers');
+router.use(authentication.authentication);
+
+router.get('/isAuthenticated', authentication.isAuthenticated);
 
 // router.post('/login', authentication.login);
 // router.get('/logout', authentication.logout);

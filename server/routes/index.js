@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const {
-//   authentication,
+  authentication,
   application,
   filter,
   member,
@@ -19,6 +19,8 @@ router.use(authentication.authentication);
 router.get('/isAuthenticated', authentication.isAuthenticated);
 
 // router.get('/logout', authentication.logout);
+//  router.get('/login', authentication.login);
+
 
 /* Application */
 router.get('/offer-applications/:offerId', application.getOfferApplications);
